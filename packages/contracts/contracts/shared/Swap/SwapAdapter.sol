@@ -6,7 +6,7 @@ import {Ownable2Step} from "@openzeppelin/contracts/access/Ownable2Step.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {TransferHelper} from "@uniswap/v3-periphery/contracts/libraries/TransferHelper.sol";
 
-import {OneInchSwapAdapter} from "./OneInch/OneInchSwapAdapter.sol";
+import {ISwapper} from "./interfaces/ISwapper.sol";
 
 /**
  * @title SwapAdapter
@@ -16,7 +16,7 @@ import {OneInchSwapAdapter} from "./OneInch/OneInchSwapAdapter.sol";
  * before proceeding with other actions. Swap router implementations can be added by owner.
  * This is designed to be owned by the Connext DAO and swappers can be added by the DAO.
  */
-contract SwapAdapter is Ownable2Step, OneInchSwapAdapter {
+contract SwapAdapter is Ownable2Step {
   using Address for address;
   using Address for address payable;
 
@@ -68,7 +68,7 @@ contract SwapAdapter is Ownable2Step, OneInchSwapAdapter {
     if (IERC20(_fromAsset).allowance(address(this), _swapper) < _amountIn) {
       TransferHelper.safeApprove(_fromAsset, _swapper, type(uint256).max);
     }
-    amountOut = callSwap(_amountIn, _fromAsset, _toAsset, _swapData);
+    amountOut = ISwapper(_swapper).callSwap(_amountIn, _fromAsset, _toAsset, _swapData);
   }
 
   /**

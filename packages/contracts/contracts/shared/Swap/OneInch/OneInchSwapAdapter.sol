@@ -3,29 +3,33 @@ pragma solidity ^0.8.17;
 
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {IERC20Metadata} from "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
+import {Ownable2Step} from "@openzeppelin/contracts/access/Ownable2Step.sol";
 import {ISwapRouter} from "@uniswap/v3-periphery/contracts/interfaces/ISwapRouter.sol";
 import {TransferHelper} from "@uniswap/v3-periphery/contracts/libraries/TransferHelper.sol";
 import {Address} from "@openzeppelin/contracts/utils/Address.sol";
+
+import {ISwapper} from "../interfaces/ISwapper.sol";
 
 /**
  * @title OneInchUniswapV3
  * @notice Swapper contract for 1inch swaps.
  */
-contract OneInchSwapAdapter {
+contract OneInchSwapAdapter is ISwapper, Ownable2Step {
   using Address for address;
   using Address for address payable;
 
   address public immutable oneInchRouter = address(0x1111111254EEB25477B68fb85Ed929f73A960582);
 
+  receive() external payable virtual {}
+
   struct SwapDescription {
-    IERC20 srcToken;
-    IERC20 dstToken;
+    address srcToken;
+    address dstToken;
     address srcReceiver;
     address dstReceiver;
     uint256 amount;
     uint256 minReturnAmount;
     uint256 flags;
-    bytes permit;
   }
 
   /**
@@ -46,9 +50,9 @@ contract OneInchSwapAdapter {
     // transfer the funds to be swapped from the sender into this contract
     TransferHelper.safeTransferFrom(_fromAsset, msg.sender, address(this), _amountIn);
 
-    if (IERC20(_fromAsset).allowance(address(this), address(oneInchRouter)) < _amountIn) {
-      TransferHelper.safeApprove(_fromAsset, address(oneInchRouter), type(uint256).max);
-    }
+    // if (IERC20(_fromAsset).allowance(address(this), address(oneInchRouter)) < _amountIn) {
+    //   TransferHelper.safeApprove(_fromAsset, address(oneInchRouter), type(uint256).max);
+    // }
 
     // decode & encode the swap data
     // the data included with the swap encodes with the selector so we need to remove it
@@ -62,31 +66,31 @@ contract OneInchSwapAdapter {
     // use actual amountIn that was sent to the xReceiver
     bytes memory returned = address(oneInchRouter).functionCall(_data, "!callSwap");
 
-    amountOut = abi.decode(returned, (uint256));
-
+    // (uint256 _a, uint256 _g) = abi.decode(returned, (uint256, uint256));
+    // amountOut = _a;
     // transfer the swapped funds back to the sender
-    TransferHelper.safeTransfer(_toAsset, msg.sender, amountOut);
+    // TransferHelper.safeTransfer(_toAsset, msg.sender, amountOut);
   }
 
   function decoderEncoderSwapAmount(uint256 _amount, bytes calldata _swapData) public returns (bytes memory) {
-    // decode the swap data
-    bytes memory _data = abi.encodeWithSelector(bytes4(_swapData[4:]), _amount, _swapData);
+    // Decode and Encode the swap data with new amountIn
+    (bool success, bytes memory data) = address(this).call(
+      abi.encodeWithSelector(bytes4(_swapData[4:]), _amount, _swapData)
+    );
 
-    bytes memory returned = address(this).functionCall(_data, "!decoderEncoderSwapAmount");
-
-    return abi.decode(returned, (bytes));
+    return data;
   }
 
   function swap(uint256 _amount, bytes calldata _swapData) internal pure returns (bytes memory) {
     // decode the swap data
-    (address _c, SwapDescription memory desc, bytes memory _d) = abi.decode(
+    (address executor, SwapDescription memory desc, bytes memory permit, bytes memory _d) = abi.decode(
       _swapData[4:],
-      (address, SwapDescription, bytes)
+      (address, SwapDescription, bytes, bytes)
     );
 
     desc.amount = _amount;
 
-    bytes memory encoded = abi.encodeWithSelector(bytes4(_swapData[4:]), _c, desc, _d);
+    bytes memory encoded = abi.encodeWithSelector(bytes4(_swapData[4:]), executor, desc, permit, _d);
     return encoded;
   }
 
