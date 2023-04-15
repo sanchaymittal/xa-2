@@ -36,3 +36,7 @@ artifacts
 deployments/*/solcInputs
 artifacts_forge
 cache_forge/
+
+packages/*/node_modules
+packages/*/dist
+packages/*/tsconfig.tsbuildinfo
