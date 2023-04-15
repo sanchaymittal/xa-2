@@ -1,11 +1,5 @@
 import { ethers } from "hardhat";
-import {
-  BigNumberish,
-  constants,
-  Contract,
-  providers,
-  Wallet,
-} from "ethers";
+import { BigNumberish, constants, Contract, providers, Wallet } from "ethers";
 import { ERC20_ABI } from "@0xgafu/common-abi";
 
 export const deploy = async (contractName: string) => {
@@ -15,6 +9,8 @@ export const deploy = async (contractName: string) => {
   const instance = await contract.deploy();
   await instance.deployed();
 
+  console.log(instance.address);
+
   return { instance, owner, otherAccount };
 };
 
@@ -22,7 +18,7 @@ export const fund = async (
   asset: string,
   wei: BigNumberish,
   from: Wallet,
-  to: string
+  to: string,
 ): Promise<providers.TransactionReceipt> => {
   if (asset === constants.AddressZero) {
     const tx = await from.sendTransaction({ to, value: wei });
@@ -37,5 +33,3 @@ export const fund = async (
 };
 
 export { ERC20_ABI };
-
-

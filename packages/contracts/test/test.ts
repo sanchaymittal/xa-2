@@ -65,5 +65,3 @@ export const main = async () => {
 
   console.log({ CASTDATA_TYPEHASH, SIG_TYPEHASH, signature });
 };
-
-main();
