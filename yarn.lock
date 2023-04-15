@@ -98,10 +98,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@connext/interfaces@npm:^2.0.3":
-  version: 2.0.3
-  resolution: "@connext/interfaces@npm:2.0.3"
-  checksum: e305765dd436fff8dbcc643c263c9532763cbd9ee166ada193b386b56c3732f487808469c48c0a3a4243d32fa1aae9825e2b497956850861b14f3ed7e406524c
+"@connext/interfaces@npm:^2.0.5":
+  version: 2.0.5
+  resolution: "@connext/interfaces@npm:2.0.5"
+  checksum: 61f8b11ab6264eefa059cae85419e583e6a7ba8e01f8a9bc704a1874f3066b076a841bb2f2f2bbdbadf56a7d554052dc266759346bab1edeed2d4861ca4a670a
   languageName: node
   linkType: hard
 
@@ -4401,8 +4401,7 @@ __metadata:
   resolution: "contracts@workspace:packages/contracts"
   dependencies:
     "@0xgafu/common-abi": ^1.0.3
-    "@1inch/fusion-sdk": ^0.1.1
-    "@connext/interfaces": ^2.0.3
+    "@connext/interfaces": ^2.0.5
     "@connext/utils": ^7.3.17
     "@ethersproject/abi": ^5.7.0
     "@ethersproject/providers": ^5.7.2
@@ -6756,6 +6755,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "fusion-server@workspace:packages/fusion-server"
   dependencies:
+    "@1inch/fusion-sdk": ^0.1.1
     "@types/node": ^18.15.11
     fastify: ^4.15.0
     typescript: ^5.0.4
