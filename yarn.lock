@@ -2649,6 +2649,12 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ax-abstraction@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "ax-abstraction@workspace:."
+  languageName: unknown
+  linkType: soft
+
 "axios@npm:0.19.2":
   version: 0.19.2
   resolution: "axios@npm:0.19.2"
@@ -4356,9 +4362,43 @@ __metadata:
   languageName: node
   linkType: hard
 
-"connext-integration@workspace:.":
+"console-control-strings@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "console-control-strings@npm:1.1.0"
+  checksum: 8755d76787f94e6cf79ce4666f0c5519906d7f5b02d4b884cf41e11dcd759ed69c57da0670afd9236d229a46e0f9cf519db0cd829c6dca820bb5a5c3def584ed
+  languageName: node
+  linkType: hard
+
+"content-disposition@npm:0.5.4":
+  version: 0.5.4
+  resolution: "content-disposition@npm:0.5.4"
+  dependencies:
+    safe-buffer: 5.2.1
+  checksum: afb9d545e296a5171d7574fcad634b2fdf698875f4006a9dd04a3e1333880c5c0c98d47b560d01216fb6505a54a2ba6a843ee3a02ec86d7e911e8315255f56c3
+  languageName: node
+  linkType: hard
+
+"content-hash@npm:^2.5.2":
+  version: 2.5.2
+  resolution: "content-hash@npm:2.5.2"
+  dependencies:
+    cids: ^0.7.1
+    multicodec: ^0.5.5
+    multihashes: ^0.4.15
+  checksum: 31869e4d137b59d02003df0c0f0ad080744d878ed12a57f7d20b2cfd526d59d6317e9f52fa6e49cba59df7f9ab49ceb96d6a832685b85bae442e0c906f7193be
+  languageName: node
+  linkType: hard
+
+"content-type@npm:~1.0.4, content-type@npm:~1.0.5":
+  version: 1.0.5
+  resolution: "content-type@npm:1.0.5"
+  checksum: 566271e0a251642254cde0f845f9dd4f9856e52d988f4eb0d0dcffbb7a1f8ec98de7a5215fc628f3bce30fe2fb6fd2bc064b562d721658c59b544e2d34ea2766
+  languageName: node
+  linkType: hard
+
+"contracts@workspace:packages/contracts":
   version: 0.0.0-use.local
-  resolution: "connext-integration@workspace:."
+  resolution: "contracts@workspace:packages/contracts"
   dependencies:
     "@0xgafu/common-abi": ^1.0.3
     "@1inch/fusion-sdk": ^0.1.1
@@ -4402,40 +4442,6 @@ __metadata:
     web3: ^1.9.0
   languageName: unknown
   linkType: soft
-
-"console-control-strings@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "console-control-strings@npm:1.1.0"
-  checksum: 8755d76787f94e6cf79ce4666f0c5519906d7f5b02d4b884cf41e11dcd759ed69c57da0670afd9236d229a46e0f9cf519db0cd829c6dca820bb5a5c3def584ed
-  languageName: node
-  linkType: hard
-
-"content-disposition@npm:0.5.4":
-  version: 0.5.4
-  resolution: "content-disposition@npm:0.5.4"
-  dependencies:
-    safe-buffer: 5.2.1
-  checksum: afb9d545e296a5171d7574fcad634b2fdf698875f4006a9dd04a3e1333880c5c0c98d47b560d01216fb6505a54a2ba6a843ee3a02ec86d7e911e8315255f56c3
-  languageName: node
-  linkType: hard
-
-"content-hash@npm:^2.5.2":
-  version: 2.5.2
-  resolution: "content-hash@npm:2.5.2"
-  dependencies:
-    cids: ^0.7.1
-    multicodec: ^0.5.5
-    multihashes: ^0.4.15
-  checksum: 31869e4d137b59d02003df0c0f0ad080744d878ed12a57f7d20b2cfd526d59d6317e9f52fa6e49cba59df7f9ab49ceb96d6a832685b85bae442e0c906f7193be
-  languageName: node
-  linkType: hard
-
-"content-type@npm:~1.0.4, content-type@npm:~1.0.5":
-  version: 1.0.5
-  resolution: "content-type@npm:1.0.5"
-  checksum: 566271e0a251642254cde0f845f9dd4f9856e52d988f4eb0d0dcffbb7a1f8ec98de7a5215fc628f3bce30fe2fb6fd2bc064b562d721658c59b544e2d34ea2766
-  languageName: node
-  linkType: hard
 
 "convert-source-map@npm:^1.5.1":
   version: 1.9.0

@@ -4,7 +4,7 @@ pragma solidity ^0.8.17;
 import {TransferHelper} from "@uniswap/v3-periphery/contracts/libraries/TransferHelper.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
-import {IConnext} from "connext-interfaces/core/IConnext.sol";
+import {IConnext} from "@connext/interfaces/core/IConnext.sol";
 import {SwapAdapter} from "../../shared/Swap/SwapAdapter.sol";
 
 contract SwapAndXCall is SwapAdapter {
@@ -87,7 +87,7 @@ contract SwapAndXCall is SwapAdapter {
   ) external payable {
     uint256 amountOut = _setupAndSwap(_fromAsset, _toAsset, _amountIn, _swapper, _swapData);
 
-    connext.xcall(_destination, _to, _toAsset, _delegate, amountOut - _relayerFee, _slippage, _callData, _relayerFee);
+    connext.xcall(_destination, _to, _toAsset, _delegate, amountOut - _relayerFee, _slippage, _callData, relayerFee);
   }
 
   // INTERNAL FUNCTIONS

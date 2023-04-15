@@ -1,0 +1,13 @@
+@baseUrl = https://api.1inch.io/v5.0/1
+@yourAddress = 0x6d2A06543D23Cc6523AE5046adD8bb60817E0a94
+
+##############
+### ẂELCOME
+GET {{baseUrl}}
+
+##############
+### S̶W̶A̶P̶
+### 1inch API v5.0
+### https://docs.1inch.io/api/quote-swap/quote
+
+GET https://api.1inch.io/v5.0/1/swap?fromTokenAddress=0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE&toTokenAddress=0x111111111117dc0aa78b770fa6a738034120c302&amount=10000000000000000&fromAddress=0xEab48A633Ada8565f2cdeB5cDE162909Fd64b749&slippage=1

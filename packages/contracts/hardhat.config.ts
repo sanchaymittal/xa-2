@@ -3,6 +3,45 @@ import "hardhat-deploy";
 import "@nomiclabs/hardhat-ethers";
 import "@nomicfoundation/hardhat-foundry";
 import { HardhatUserConfig } from "hardhat/config";
+const argv = require("yargs/yargs")()
+  .env("")
+  .options({
+    coverage: {
+      type: "boolean",
+      default: false,
+    },
+    gas: {
+      alias: "enableGasReport",
+      type: "boolean",
+      default: false,
+    },
+    gasReport: {
+      alias: "enableGasReportPath",
+      type: "string",
+      implies: "gas",
+      default: undefined,
+    },
+    mode: {
+      alias: "compileMode",
+      type: "string",
+      choices: ["production", "development"],
+      default: "development",
+    },
+    ir: {
+      alias: "enableIR",
+      type: "boolean",
+      default: false,
+    },
+    compiler: {
+      alias: "compileVersion",
+      type: "string",
+      default: "0.8.13",
+    },
+    coinmarketcap: {
+      alias: "coinmarketcapApiKey",
+      type: "string",
+    },
+  }).argv;
 
 const alchemyApiKey = process.env.ALCHEMY_API_KEY;
 const PRIVATE_KEY = process.env.PRIVATE_KEY;
@@ -28,11 +67,18 @@ function getNetworkUrl(networkType: string) {
   else return alchemyApiKey ? `https://eth-mainnet.alchemyapi.io/v2/${alchemyApiKey}` : "https://cloudflare-eth.com";
 }
 
+const withOptimizations = argv.gas || argv.compileMode === "production";
+
 const config: HardhatUserConfig = {
   solidity: {
     version: "0.8.19",
     settings: {
-      viaIR: true,
+      optimizer: {
+        enabled: withOptimizations,
+        runs: 200,
+      },
+      viaIR: withOptimizations && argv.ir,
+      outputSelection: { "*": { "*": ["storageLayout"] } },
     },
   },
   defaultNetwork: "hardhat",
