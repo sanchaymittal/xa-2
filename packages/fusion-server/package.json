@@ -1,0 +1,21 @@
+{
+  "name": "fusion-server",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js",
+    "dev": "yarn build && yarn start"
+  },
+  "main": "index.js",
+  "files": [
+    "dist/**/*",
+    "src/**/*"
+  ],
+  "packageManager": "yarn@3.4.1",
+  "dependencies": {
+    "fastify": "^4.15.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.11",
+    "typescript": "^5.0.4"
+  }
+}
