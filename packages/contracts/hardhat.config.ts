@@ -45,7 +45,7 @@ import { HardhatUserConfig } from "hardhat/config";
 
 const alchemyApiKey = process.env.ALCHEMY_API_KEY;
 const PRIVATE_KEY = process.env.PRIVATE_KEY;
-const MNEMONIC = process.env.MNEMONIC ?? "elegant gift water impulse they estate buzz bike dawn vocal throw defense";
+const MNEMONIC = process.env.MNEMONIC ?? "";
 
 function createConfig(network: string) {
   return {
