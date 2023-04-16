@@ -1,4 +1,4 @@
-# Connext-Integration
+# XA^2
 
 Contracts for Connext integration
 
