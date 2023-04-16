@@ -50,9 +50,9 @@ contract OneInchSwapAdapter is ISwapper, Ownable2Step {
     // transfer the funds to be swapped from the sender into this contract
     TransferHelper.safeTransferFrom(_fromAsset, msg.sender, address(this), _amountIn);
 
-    // if (IERC20(_fromAsset).allowance(address(this), address(oneInchRouter)) < _amountIn) {
-    //   TransferHelper.safeApprove(_fromAsset, address(oneInchRouter), type(uint256).max);
-    // }
+    if (IERC20(_fromAsset).allowance(address(this), address(oneInchRouter)) < _amountIn) {
+      TransferHelper.safeApprove(_fromAsset, address(oneInchRouter), type(uint256).max);
+    }
 
     // decode & encode the swap data
     // the data included with the swap encodes with the selector so we need to remove it
